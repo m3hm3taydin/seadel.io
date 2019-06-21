@@ -29,7 +29,7 @@ ipython==7.2.0
 ipython-genutils==0.2.0
 isodate==0.6.0
 jedi==0.13.1
-Jinja2==2.10
+Jinja2==2.10.1
 joblib==0.13.0
 jsonschema==2.6.0
 jupyter-client==5.2.3
@@ -44,12 +44,12 @@ mistune==0.8.4
 nbconvert==5.3.1
 nbformat==4.4.0
 nose==1.3.7
-notebook==5.7.2
+notebook==5.7.8
 numpy==1.14.5
 packaging==18.0
 pandas==0.23.4
 pandocfilters==1.4.2
-parso==0.3.1
+parso==0.5.0
 pexpect==4.6.0
 pickleshare==0.7.5
 Pillow==5.4.1
@@ -67,9 +67,8 @@ pyparsing==2.3.0
 PySocks==1.6.8
 python-dateutil==2.7.5
 pytz==2018.7
-PyYAML==3.13
 pyzmq==17.1.2
-requests==2.19.1
+requests==2.22.0
 requests-toolbelt==0.9.1
 ruamel-yaml==0.15.46
 scikit-learn==0.19.2
