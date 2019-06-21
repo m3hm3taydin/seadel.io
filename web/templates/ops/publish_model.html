@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block base %}
+{% include "../web/step_wizard.html" with step=5 %}
+{% endblock %}
+
+
+{% block content %}
+
+<table id="gallery" class="table bg-dark table-sm table-bordered ">
+  <thead class="text-white ">
+    <tr>
+      <th>Status</th>
+      <th>Published Models ({{ model_list.count }})</th>
+      <th>Sample</th>
+      <th>Selected Model</th>
+      <th>auc</th>
+      <th>log loss</th>
+      <th>MPCE</th>
+      <th>rmse</th>
+      <th>mse</th>
+      <th>port</th>
+      <th>Operations</th>
+    </tr>
+  </thead>
+  <tbody class="text-dark ">
+    {% for model in model_list %}
+      <tr class="table">
+        <td>
+          <a href="{% url 'toggle_status_model' pk=model.pk %}" class="btn btn-sm">
+            {% if model.status %}
+            <span class="fa fa-power-off" style="font-size:24px;color:green">&nbsp;</span>
+              {% else %}
+            <span class="fa fa-power-off" style="font-size:24px;color:red">&nbsp;</span>
+              {% endif %}
+
+          </a>
+        </td>
+        <td>
+          <a href="#" class="btn btn-sm">
+            <span class="fa fa-eye">&nbsp;{{ model.model_path|slice:"0:30" }}...</span>
+          </a>
+        </td>
+        <td>
+          <a href="#" class="btn btn-sm">
+            <span class="fa fa-eye">&nbsp;{{ model.sample_path|slice:"0:20" }}...</span>
+          </a>
+        </td>
+        <td>
+          {{ model.selected_models|slice:"0:20" }}...
+        </td>
+        <td>
+          {{ model.auc|slice:"0:5" }}
+        </td>
+        <td>
+          {{ model.logloss|slice:"0:5" }}
+        </td>
+        <td>
+          {{ model.mean_per_class_error|slice:"0:5" }}
+        </td>
+        <td>
+          {{ model.rmse|slice:"0:5" }}
+        </td>
+        <td>
+          {{ model.mse|slice:"0:5" }}
+        </td>
+        <td>
+          {{ model.port }}
+        </td>
+        <td>
+          <a href="#" class="btn btn-sm btn-primary">
+            <span class="fa fa-info">&nbsp;info</span>
+          </a>
+          {% if model.status %}
+          <a target="_blank" href="http://{{ model.ip }}:{{ model.port }}/apidocs" class="btn btn-sm btn-success">
+            <span class="fa fa-plane">&nbsp;try</span>
+          </a>
+          {% endif %}
+          <a href="{% url 'delete_model' pk=model.pk %}" class="btn btn-sm btn-danger">
+            <span class="fa fa-times">&nbsp;delete</span>
+          </a>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
+
+
+{% block footer %}
+{% include "../web/footer_step.html" with step=5 %}
+{% endblock %}

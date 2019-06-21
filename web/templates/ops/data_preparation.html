@@ -1,0 +1,190 @@
+{% extends 'base.html' %}
+
+{% block base %}
+{% include "../web/step_wizard.html" with step=2 %}
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="card">
+    <div class="card-header text-white bg-dark">Dataset -----
+      <a href="/file/download/" data-ref="download-modal" class="btn btn-sm btn-warning" operation="dataset">
+        <span class="fa fa-download"></span>
+      </a>
+    </div>
+    <div class="card-body">
+        <div class="table table-sm table-danger table-responsive">{{ return_data | safe}}</div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header text-white bg-dark">Dataframe Information</div>
+    <div class="card-body">
+        <p class="text-secondary">
+      The File has {{ v_row_count }} rows and {{ v_column_count }} columns
+    </p>
+
+    {% if v_zero_counts == 0 %}
+    <p class="text-success">
+    {% else %}
+    <p class="text-warning">
+    {% endif %}
+      The file has {{ v_zero_counts }} zero cells
+      {% if v_zero_counts != 0 %}
+      <a href="#" data-ref="open-modal" class="btn btn-sm btn-success" operation="zero">
+          <span class="fa fa-eye"></span>
+      </a>
+      <a href="#" class="btn btn-sm btn-danger">
+          <span class="fa fa-trash-o"></span>
+      </a>
+      {% endif %}
+    </p>
+
+
+    {% if v_null_counts == 0 %}
+    <p class="text-success">
+    {% else %}
+    <p class="text-danger">
+    {% endif %}
+      The file has {{ v_null_counts }} null rows.
+      {% if v_null_counts != 0 %}
+
+      <a href="#" data-ref="open-modal" class="btn btn-sm btn-success" operation="null">
+          <span class="fa fa-eye"></span>
+      </a>
+      <a href="#" class="btn btn-sm btn-danger">
+          <span class="fa fa-trash-o"></span>
+      </a>
+      {% endif %}
+    </p>
+
+    {% if v_duplicated_counts == 0 %}
+    <p class="text-success">
+    {% else %}
+    <p class="text-danger">
+    {% endif %}
+      The file has {{ v_duplicated_counts }} duplicate rows
+      {% if v_duplicated_counts != 0 %}
+      <a href="#" class="btn btn-sm btn-success">
+          <span class="fa fa-eye"></span>
+      </a>
+
+      <a href="#" class="btn btn-sm btn-danger">
+          <span class="fa fa-trash-o"></span>
+      </a>
+      {% endif %}
+    </p>
+
+
+  </div>
+
+</div>
+
+<div class="card">
+    <div class="card-header text-white bg-dark">Dataframe Operations</div>
+    <div class="card-body">
+      <div class="table table-sm table-danger table-responsive">
+        <table class="table">
+          <thead>
+              <tr>
+                  <th>Column Name</th>
+                  <th>Column Type</th>
+                  <th>Column Operations</th>
+                  <th>Outliers</th>
+                  <th>Features</th>
+              </tr>
+          </thead>
+          <tbody>
+            {% for column, column_type in v_dtype_count.items %}
+            <tr>
+              <td>
+                <p class="text-primary">
+                   {{ column }}
+                </p>
+              </td>
+              <td>
+                {{ column_type }}
+              </td>
+              <td>
+                <a href="#" data-ref="change-modal" operation="changecolumn-{{ column }}" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Change Column Name">
+                    <span class="fa fa-pencil"></span>
+                </a>
+
+                <a href="#" data-ref="open-modal" operation="column-{{ column }}" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Look Data">
+                    <span class="fa fa-search-plus"></span>
+                </a>
+                <a href="#" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="Convert Column Type">
+                    <span class="fa fa-refresh"></span>
+                </a>
+                <a href="#" data-ref="drop_modal" operation="dropcolumn-{{ column }}" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Drop Column">
+                    <span class="fa fa-trash-o"></span>
+                </a>
+              </td>
+              <td>
+                {% if column_type == 'int64' or column_type == 'float64' %}
+                  <a href="#" data-ref="look_outlier_modal" operation="lookoutlier-{{ column }}" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Look For Outliers">
+                      <span class="fa fa-eye"></span>
+                  </a>
+                  <a href="#" data-ref="remove_outlier_modal" operation="removeoutlier-{{ column }}" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Remove Outliers">
+                      <span class="fa fa-trash-o"></span>
+                  </a>
+                {% endif %}
+              </td>
+              <td>
+                {% if column_type != 'int64' and column_type != 'float64' %}
+                <a href="#" data-ref="create_categorical_modal" operation="createcategorical-{{ column }}" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Create Categorical Column">
+                    <span class="fa fa-share-square-o"></span>
+                </a>
+                  <a href="#" data-ref="create_dummy_modal" operation="createdummy-{{ column }}" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="Create Dummy Columns">
+                      <span class="fa fa-share-square-o"></span>
+                  </a>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+  </div>
+
+</div>
+
+
+<div id="modal-div"></div>
+
+
+
+
+<script type="text/javascript">
+$( document ).ready(function() {
+
+  var modalDiv = $("#modal-div");
+  $("a[data-toggle='tooltip']").click(function() {
+    var ops = $(this).attr('operation');
+    url = "{% url 'null_modal' operation='changeText' %}".replace('changeText', ops);
+
+    $.ajax({
+      url: url,
+      success: function(data) {
+        modalDiv.html(data);
+        $("#myEdit").modal('show');
+
+      }
+    });
+
+  });
+
+});
+</script>
+
+
+
+{% endblock %}
+
+
+{% block footer %}
+{% include "../web/footer_step.html" with step=2 %}
+{% endblock %}

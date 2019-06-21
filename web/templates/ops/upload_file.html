@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block base %}
+{% include "../web/step_wizard.html" with step=1 %}
+{% endblock %}
+
+
+{% block javascript %}
+<script src="{% static 'photos/js/basic-upload.js' %}"></script>
+{% endblock %}
+
+
+{% block content %}
+
+
+
+<div style="margin-bottom: 20px;">
+  <button type="button" class="btn text-white bg-dark js-upload-photos">
+    <span class="glyphicon glyphicon-cloud-upload"></span> Upload Files
+  </button>
+  <input id="fileupload" type="file" name="file" multiple style="display: none;" data-url="{% url 'upload' %}" data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
+</div>
+
+<table id="gallery" class="table bg-dark text-white table-sm table-bordered ">
+  <thead>
+    <tr>
+      <th>Uploaded Files ({{ documents.count }})</th>
+      <th>Operations</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for document in documents %}
+    {% if document.is_active %}
+    <tr class="table table-success">
+      {% else %}
+    <tr class="table">
+      {% endif %}
+      <td>
+        <a href="#" data-ref="open-modal" operation="all-{{ document.pk }}" class="btn btn-sm">
+          <span class="fa fa-eye">&nbsp;{{ document.file.name }}</span>
+        </a>
+      </td>
+      <td>
+        <a href="{% url 'setactive_document' pk=document.pk %}" class="btn btn-sm btn-success">
+          <span class="fa fa-star"></span>
+        </a>
+
+        <a href="{{ document.file.url }}" class="btn btn-sm btn-success">
+          <span class="fa fa-download"></span>
+        </a>
+        <a href="#" data-ref="open-modal" operation="settings-{{ document.pk }}" class="btn btn-sm btn-warning">
+          <span class="fa fa-cog"></span>
+        </a>
+        <a href="{% url 'delete_document' pk=document.pk %}" class="btn btn-sm btn-danger">
+          <span class="fa fa-times"></span>
+        </a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<!--
+  <div class="modal fade" id="modal-progress" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Uploading...</h4>
+        </div>
+        <div class="modal-body">
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 0%;">0%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+
+<div id="modal-div"></div>
+
+
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    var modalDiv = $("#modal-div");
+    $("a[data-ref='open-modal']").click(function() {
+      var ops = $(this).attr('operation');
+      url = "{% url 'null_modal' operation='changeText' %}".replace('changeText', ops);
+
+      $.ajax({
+        url: url,
+        success: function(data) {
+          modalDiv.html(data);
+          $("#myEdit").modal('show');
+
+        }
+      });
+
+    });
+  });
+</script>
+{% endblock %}
+
+
+{% block footer %}
+{% include "../web/footer_step.html" with step=1 %}
+{% endblock %}

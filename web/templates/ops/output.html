@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block base %}
+{% include "../web/step_wizard.html" with step=4 %}
+{% endblock %}
+
+
+{% block content %}
+<div class="card">
+    <div class="card-header text-white bg-dark">
+      Analyse Results
+    </div>
+    <div class="card-body">
+        <div class="table table-sm table-responsive">
+          <textarea id="output" row=3 cols=25></textarea>
+        </div>
+    </div>
+</div>
+<script>
+  var ws = new WebSocket('{{ ws_url }}');
+  ws.onmessage = function(e) {
+    $('#output').append(e.data);
+  };
+</script>
+{% endblock %}
+
+
+{% block footer %}
+{% include "../web/footer_step.html" with step=4 %}
+{% endblock %}

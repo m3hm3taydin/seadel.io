@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% block base %}
+{% include "../web/step_wizard.html" with step=3 %}
+{% endblock %}
+
+
+{% block content %}
+
+<form  class="well contact-form" method="post" action="{% url 'generate_chart' %}">
+  {% csrf_token %}
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="card">
+          <div class="card-header text-white bg-dark">
+            <span class="fa">Values</span>
+          </div>
+          <div class="card-body">
+            {% for column, type_column in columns.items %}
+              {% if 'int' in type_column %}
+              <div class="form-check">
+                {% if column in parameters %}
+                  <input class="form-check-input" type="checkbox" data-toggle="toggle" checked data-type="value" name="{{ column }}" id="{{ column }}">
+                {% else %}
+                  <input class="form-check-input" type="checkbox" data-toggle="toggle" data-type="value" name="{{ column }}" id="{{ column }}">
+                {% endif %}
+                <label class="form-check-label" for="{{ column }}">
+                  <span class="fa">{{ column }}</span>
+                </label>
+              </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header text-white bg-dark">
+            <span class="fa">Categories</span>
+
+          </div>
+          <div class="card-body">
+            {% for column, type_column in columns.items %}
+            {% if 'int' not in type_column %}
+            <div class="form-check">
+              {% if column in parameters %}
+                <input class="form-check-input" checked type="checkbox" data-toggle="toggle" data-type="category" name="{{ column }}" id="{{ column }}">
+              {% else %}
+                <input class="form-check-input" type="checkbox" data-toggle="toggle" data-type="category" name="{{ column }}" id="{{ column }}">
+              {% endif %}
+              <label class="form-check-label" for="{{ column }}">
+                <span class="fa">{{ column }}</span>
+              </label>
+            </div>
+            {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+        <button  type="submit" class="btn btn-success">Generate Chart</button>
+      </div>
+      <div class="col-md-7">
+        <div class="card">
+          <div class="card-header text-white bg-dark">
+            <span class="fa">Chart</span>
+          </div>
+          <div class="card-body">
+            {% if generated_chart is not null %}
+            <img alt="embedded" src="data:image/png;base64,{{ generated_chart }}"/>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="card">
+          <div class="card-header text-white bg-dark">
+            <span class="fa">Properties</span>
+          </div>
+          <div class="card-body">
+            <p class="btn-font text-secondary">Chart Type</p>
+            <div class="input-group">
+              <select class="custom-select btn-font" name="chart-type" id="chart-type">
+                <option selected value="bar">Bar</option>
+                <option value="line">Line</option>
+                <option value="scatter">Scatter</option>
+                <option value="box">Box</option>
+                <option value="violin">Violin</option>
+
+                <!-- <option value="joint">Joint</option> -->
+                <!-- <option value="dist">Distribution</option> -->
+              </select>
+            </div>
+          </div>
+          <div class="card-body">
+            <p class="btn-font text-secondary">Chart Title</p>
+            <input type="text" class="btn-font form-control form-control-sm" name="chart_title" value="{{ parameters.chart_title }}">
+          </div>
+          <div class="card-body">
+            <p class="btn-font text-secondary">Chart Width</p>
+            <input type="text" class="btn-font form-control form-control-sm" name="chart_size_x" value="{{ parameters.chart_size_x }}">
+          </div>
+          <div class="card-body">
+            <p class="btn-font text-secondary">Chart Height</p>
+            <input type="text" class="btn-font form-control form-control-sm" name="chart_size_y" value="{{ parameters.chart_size_y }}">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+<!-- <script type="text/javascript">
+  $('.form-check-input').change(function() {
+  alert($(this).prop('checked') + '-' + $(this).prop('id') + '-' + $(this).attr('data-type'))
+})
+</script> -->
+
+
+{% endblock %}
+
+
+{% block footer %}
+{% include "../web/footer_step.html" with step=3 %}
+{% endblock %}

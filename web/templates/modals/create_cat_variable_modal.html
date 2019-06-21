@@ -1,0 +1,28 @@
+<div class="modal fade" id="myEdit" role="dialog">
+  <div class="modal-dialog modal-lg">
+      <form  class="well contact-form" method="post" action="{% url 'data_prepare' %}">
+        {% csrf_token %}
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Create Categorical Column</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+
+          <input type="hidden" class="form-control" name="catColumnName" value="{{ column_name }}">
+
+
+          <div class="table table-responsive">
+            {{ value_list | safe}}
+          </div>
+
+         </div>
+          <div class="modal-footer">
+            <button  type="submit" class="btn btn-warning">Create</button>
+            <button  value="" type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+          </div>
+         </div>
+      </form>
+
+  </div>
+</div>

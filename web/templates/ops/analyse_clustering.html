@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block base %}
+{% include "../web/step_wizard.html" with step=4 %}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card-box">
+                    <div class="card-title">
+                        <h2>K-Means</h2>
+                        <p>One of the principal responsibilities of a data scientist is to make reliable predictions based on data. When the amount of data available is enormous, it helps if some of the analysis can be automated. Machine learning is a way of identifying patterns in data and using them to automatically make predictions or decisions. In this data science course, you will learn basic concepts and elements of machine learning. </p>
+                    </div>
+                    <div class="card-link">
+                        <a href="" class="c-link">Learn More
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card-box">
+                    <div class="card-title">
+                        <h2>Interactive Clustering</h2>
+                        <p>Cluster analysis or clustering is the task of grouping a set of objects in such a way that objects in the same group (called a cluster) are more similar (in some sense) to each other than to those in other groups (clusters).</p>
+                    </div>
+                    <div class="card-link">
+                        <a href="" class="c-link">Learn More
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card-box">
+                    <div class="card-title">
+                        <h2>Anomaly Detection</h2>
+                        <p>Cluster analysis or clustering is the task of grouping a set of objects in such a way that objects in the same group (called a cluster) are more similar (in some sense) to each other than to those in other groups (clusters).</p>
+                    </div>
+                    <div class="card-link">
+                        <a href="" class="c-link">Learn More
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block footer %}
+{% include "../web/footer_step.html" with step=4 %}
+{% endblock %}

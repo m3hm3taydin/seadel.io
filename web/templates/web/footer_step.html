@@ -1,0 +1,61 @@
+<div class="row pt-4 pb-4">
+  <div class="col-2">
+
+    {% if step == 1 %}
+
+    {% elif step == 2 %}
+    <a href="/file/new" class="btn btn-sm btn-secondary  float-left">
+      <span class="fa fa-arrow-left"></span> Previous
+    </a>
+    {% elif step == 3 %}
+    <a href="{% url 'data_prepare' %}" class="btn btn-sm btn-secondary  float-left">
+      <span class="fa fa-arrow-left"></span> Previous
+    </a>
+    {% elif step == 4 %}
+    <a href="{% url 'visualize_data' %}" class="btn btn-sm btn-secondary  float-left">
+      <span class="fa fa-arrow-left"></span> Previous
+    </a>
+    {% elif step == 5 %}
+    <a href="{% url 'analyse_data' %}" class="btn btn-sm btn-secondary  float-left">
+      <span class="fa fa-arrow-left"></span> Previous
+    </a>
+    {% elif step == 6 %}
+    <a href="#publish" class="btn btn-sm btn-secondary  float-left">
+      <span class="fa fa-arrow-left"></span> Previous
+    </a>
+    {% endif %}
+
+  </div>
+  <div class="col-8">
+
+  </div>
+  <div class="col-2">
+
+    {% if step == 1 %}
+    <a href="{% url 'data_prepare' %}" class="btn btn-sm btn-secondary  float-right">
+      Next <span class="fa fa-arrow-right"></span>
+    </a>
+    {% elif step == 2 %}
+    <a href="{% url 'visualize_data' %}" class="btn btn-sm btn-secondary  float-right">
+      Next <span class="fa fa-arrow-right"></span>
+    </a>
+    {% elif step == 3 %}
+    <a href="{% url 'analyse_data' %}" class="btn btn-sm btn-secondary  float-right">
+      Next <span class="fa fa-arrow-right"></span>
+    </a>
+    {% elif step == 4 %}
+    <a href="{% url 'publish_model' %}" class="btn btn-sm btn-secondary  float-right">
+      Next <span class="fa fa-arrow-right"></span>
+    </a>
+    {% elif step == 5 %}
+    <a href="#monitor" class="btn btn-sm btn-secondary  float-right">
+      Next <span class="fa fa-arrow-right"></span>
+    </a>
+    {% elif step == 6 %}
+
+    {% endif %}
+
+
+  </div>
+
+</div>

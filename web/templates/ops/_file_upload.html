@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block base %}
+{% include "../web/step_wizard.html" with step=1 %}
+{% endblock %}
+
+{% block content %}
+
+<div class="panel panel-primary">
+  <div class="panel-heading">New File</div>
+  <div class="panel-body">
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-6">
+              <div class="btn btn-default btn-block">
+                  {{ form.document }}
+              </div>
+            </div>
+            <div class="col-md-2">
+              <button class="btn btn-primary"> <span class="glyphicon glyphicon-upload" style="margin-right:5px;"></span>Upload </button>
+            </div>
+            <div class="col-md-2"></div>
+          </div>
+        </div>
+      </form>
+
+  </div>
+</div>
+
+<div class="panel panel-primary">
+  <div class="panel-heading">Uploaded Files</div>
+  <div class="panel-body">
+    {% for file, file_path in files.items %}
+      <a href="{{ file_path }}" class="btn btn-primary">
+        <span class="glyphicon glyphicon-th-list"></span> {{ file }}
+      </a>
+    {% endfor %}
+
+  </div>
+</div>
+
+  <!--<p><a href="{% url 'index' %}">Return to index</a></p>-->
+{% endblock %}
+
+
+
+{% block footer %}
+{% include "../web/footer_step.html" with step=1 %}
+{% endblock %}

@@ -1,0 +1,24 @@
+<div class="modal fade" id="myEdit" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <form class="card bg-light card-body mb-3 contact-form" method="post" action="">
+        {% csrf_token %}
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Preview</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+
+            <div class="table table-responsive modal-font">
+              {{ return_data | safe}}
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button  value="" type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </form>
+
+  </div>
+</div>

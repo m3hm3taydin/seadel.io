@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block base %}
+{% include "../web/step_wizard.html" with step=1 %}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="jumbotron">
+<div class="row w-100">
+        <div class="col-md-3">
+            <div class="card border-info mx-sm-1 p-3">
+                <div class="card border-info shadow text-info p-3 data-source-card" ><span class="fa fa-plus" aria-hidden="true"></span></div>
+                <div class="text-info text-center mt-3"><h4>File</h4></div>
+                <div class="text-info text-center mt-2"><h1>CSV</h1></div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-success mx-sm-1 p-3">
+                <div class="card border-success shadow text-success p-3 data-source-card"><span class="fa fa-plus" aria-hidden="true"></span></div>
+                <div class="text-success text-center mt-3"><h4>File</h4></div>
+                <div class="text-success text-center mt-2"><h1>XSLX</h1></div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-danger mx-sm-1 p-3">
+                <div class="card border-danger shadow text-danger p-3 data-source-card" ><span class="fa fa-plus" aria-hidden="true"></span></div>
+                <div class="text-danger text-center mt-3"><h4>Database</h4></div>
+                <div class="text-danger text-center mt-2"><h1>MSSQL</h1></div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-warning mx-sm-1 p-3">
+                <div class="card border-warning shadow text-warning p-3 data-source-card" ><span class="fa fa-plus" aria-hidden="true"></span></div>
+                <div class="text-warning text-center mt-3"><h4>Database</h4></div>
+                <div class="text-warning text-center mt-2"><h1>MYSQL</h1></div>
+            </div>
+        </div>
+     </div>
+</div>
+{% endblock %}
+
+
+{% block footer %}
+{% include "../web/footer_step.html" with step=1 %}
+{% endblock %}

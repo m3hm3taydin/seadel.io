@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block base %}
+{% include "../web/step_wizard.html" with step=4 %}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="card">
+  <div class="card-header text-white bg-dark">
+    Analyse Results
+  </div>
+  <div class="card-body">
+    <form class="well contact-form" method="post" action="{% url 'analyse_prediction_auto' %}">
+      {% csrf_token %}
+       Target : <select name="selected_target" id="selected_target" class="selectpicker" data-live-search="true">
+        {% for column, type_column in columns.items %}
+        <option value="{{ column }}">{{ column }}</option>
+        {% endfor %}
+      </select>
+      <br />
+      <button type="submit" class="btn btn-success">
+        <span class="fa fa-refresh"></span> Analyse
+      </button>
+
+      <div class="table table-sm table-responsive">{{ return_data | safe}}</div>
+    </form>
+  </div>
+</div>
+
+
+{% endblock %}
+
+
+
+{% block footer %}
+{% include "../web/footer_step.html" with step=4 %}
+{% endblock %}
