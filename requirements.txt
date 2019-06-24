@@ -31,6 +31,7 @@ incremental==17.5.0
 ipykernel==5.1.1
 ipython==7.5.0
 ipython-genutils==0.2.0
+ipywidgets==7.4.2
 itsdangerous==1.1.0
 jedi==0.14.0
 Jinja2==2.10.1
@@ -86,5 +87,6 @@ wcwidth==0.1.7
 webencodings==0.5.1
 Werkzeug==0.15.1
 whitenoise==4.1.2
+widgetsnbextension==3.4.2
 xlrd==1.2.0
 zope.interface==4.6.0
