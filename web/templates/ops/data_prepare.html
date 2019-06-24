@@ -18,13 +18,23 @@
       </div>
     </div>
     {% for column, column_type in v_dtype_count.items %}
-    <div class="text-white bg-dark p-0 text-left justify-content-left">
-      <div class="logoarea pt-1 pb-1">
-        <a href="{% url 'data_prepare_detail' pk=forloop.counter %}" class="btn btn-md text-white">
-          <span class="fa fa-arrow-right">&nbsp;&nbsp;{{ column }}</span>
-        </a>
-      </div>
-    </div>
+      {% if selected_column == column %}
+        <div class="text-dark bg-white p-0 text-left justify-content-left">
+          <div class="logoarea pt-1 pb-1">
+            <a href="{% url 'data_prepare_detail' pk=forloop.counter %}" class="btn btn-md text-dark">
+              <span class="fa fa-arrow-right">&nbsp;&nbsp;{{ column }}</span>
+            </a>
+          </div>
+        </div>
+      {% else %}
+        <div class="text-white bg-dark p-0 text-left justify-content-left">
+          <div class="logoarea pt-1 pb-1">
+            <a href="{% url 'data_prepare_detail' pk=forloop.counter %}" class="btn btn-md text-white">
+              <span class="fa fa-arrow-right">&nbsp;&nbsp;{{ column }}</span>
+            </a>
+          </div>
+        </div>
+      {% endif %}
     {% endfor %}
   </div>
 
