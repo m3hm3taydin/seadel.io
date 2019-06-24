@@ -334,6 +334,16 @@ def data_prepare(request):
             #and lets render again
             context = create_temp_context(request, df)
             return render(request, 'ops/data_prepare.html', context)
+        if 'lookoutlierColumnName' in request.POST:
+            outlierColumnName = request.POST['lookoutlierColumnName']
+            print('outlier Column Name : {}'.format(outlierColumnName))
+
+            #now lets remove the outliers for column
+
+            df = remove_outlier(get_selected_dataframe(request), outlierColumnName)
+            #and lets render again
+            context = create_temp_context(request, df)
+            return render(request, 'ops/data_prepare.html', context)
     else:
         selected_dataframe = get_selected_dataframe(request)
         if type(selected_dataframe) == type(False):

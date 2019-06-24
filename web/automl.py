@@ -16,9 +16,8 @@ import socket
 from .models import ModelData
 from .publish_model import publish_model
 
-
 def run_auto_analyse(train, test, target, max_models=2):
-    h2o.init(strict_version_check = False)
+    h2o.init(strict_version_check = False, nthreads=-1,max_mem_size='128M')
 
     testdf = test
     train = h2o.H2OFrame(train)
@@ -42,7 +41,7 @@ def run_auto_analyse(train, test, target, max_models=2):
 
     print('*' * 50)
     print(os.getcwd())
-    
+
     model_path = "media/models"
     model_schemas_path = "media/modelschemas"
     # model and schemas directories exists ?
@@ -63,7 +62,7 @@ def run_auto_analyse(train, test, target, max_models=2):
 
     newlb = lb.as_data_frame()
     selected_model = newlb['model_id'][0]
-   
+
     auc = ''
     logloss = ''
     mean_per_class_error = ''
@@ -80,7 +79,7 @@ def run_auto_analyse(train, test, target, max_models=2):
 
     if 'rmse' in newlb:
         rmse = newlb['rmse'][0]
-   
+
     if 'mse' in newlb:
         mse = newlb['mse'][0]
 
