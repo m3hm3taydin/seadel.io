@@ -50,11 +50,7 @@ def send_file(request):
 
 def modal_show(request, operation):
     print(operation)
-    # files =  request.session.get('files', False)
 
-    # r_file = list(files.keys())[0]
-    # r_file_url = files[r_file]
-    # path_url = request.session.get('file_url', False)
     if operation == 'null':
         context = {'return_data': get_null_rows_as_html(get_current_document().pk),
         }
@@ -95,10 +91,15 @@ def modal_show(request, operation):
         if 'lookoutlier' in operation:
             column = operation.split('-')
             context = {'column_name': column[1],
-                        # 'value_list': get_outlier_image(get_selected_dataframe(request), column[1])
                         'value_list' : get_column_boxplot(get_selected_dataframe(request), column[1])
             }
             return render(request, 'modals/look_outliers_modal.html', context)
+        if 'wordcloud' in operation:
+            column = operation.split('-')
+            context = {'column_name': column[1],
+                        'value_list' : get_wordcloud_image(get_selected_dataframe(request), column[1])
+            }
+            return render(request, 'modals/word_cloud.html', context)
         if 'all' in operation:
             document_pk = operation.split('-')
             context = {'return_data': get_df_as_html(document_pk[1]),}
@@ -288,60 +289,39 @@ def data_prepare(request):
             print('*'*50)
             print('new Column Name : {}'.format(newColumnName))
             print('old Column Name : {}'.format(oldColumnName))
-
-            #now lets change the column column name
-
             df = change_column_name(get_selected_dataframe(request), oldColumnName, newColumnName)
-            #and lets render again
             context = create_temp_context(request, df)
             return render(request, 'ops/data_prepare.html', context)
 
         if 'dropColumnName' in request.POST:
             dropColumnName = request.POST['dropColumnName']
             print('drop Column Name : {}'.format(dropColumnName))
-
-            #now lets drop the column column name
-
             df = drop_column(get_selected_dataframe(request), dropColumnName)
-            #and lets render again
             context = create_temp_context(request, df)
             return render(request, 'ops/data_prepare.html', context)
 
         if 'dummyColumnName' in request.POST:
             dummyColumnName = request.POST['dummyColumnName']
             print('Dummy Column Name : {}'.format(dummyColumnName))
-
             df = create_dummy_columns(get_selected_dataframe(request), dummyColumnName)
-            #and lets render again
             context = create_temp_context(request, df)
             return render(request, 'ops/data_prepare.html', context)
         if 'catColumnName' in request.POST:
             catColumnName = request.POST['catColumnName']
             print('Categorical Column Name : {}'.format(catColumnName))
-
-
             df = create_categorical_column(get_selected_dataframe(request), catColumnName)
-            #and lets render again
             context = create_temp_context(request, df)
             return render(request, 'ops/data_prepare.html', context)
         if 'outlierColumnName' in request.POST:
             outlierColumnName = request.POST['outlierColumnName']
             print('outlier Column Name : {}'.format(outlierColumnName))
-
-            #now lets remove the outliers for column
-
             df = remove_outlier(get_selected_dataframe(request), outlierColumnName)
-            #and lets render again
             context = create_temp_context(request, df)
             return render(request, 'ops/data_prepare.html', context)
         if 'lookoutlierColumnName' in request.POST:
             outlierColumnName = request.POST['lookoutlierColumnName']
             print('outlier Column Name : {}'.format(outlierColumnName))
-
-            #now lets remove the outliers for column
-
             df = remove_outlier(get_selected_dataframe(request), outlierColumnName)
-            #and lets render again
             context = create_temp_context(request, df)
             return render(request, 'ops/data_prepare.html', context)
     else:
@@ -365,7 +345,6 @@ def data_prepare_detail(request, pk):
 
 
 def create_detail_context(request, df, pk):
-
         html = df.head().to_html(classes='table table-striped table-bordered table-hover')
         selected_column = df.columns[int(pk) - 1]
 

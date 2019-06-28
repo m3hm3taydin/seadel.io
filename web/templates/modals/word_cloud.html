@@ -1,0 +1,24 @@
+<div class="modal fade" id="myEdit" role="dialog">
+  <div class="modal-dialog modal-lg">
+      <form  class="well contact-form" method="post" action="#">
+        {% csrf_token %}
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Word Cloud</h4>
+          </div>
+          <div class="modal-body">
+
+           <div class="table-responsive">
+             <img width="800px" alt="embedded" src="data:image/png;base64,{{ value_list }}"/>
+           </div>
+
+         </div>
+          <div class="modal-footer">
+            <button  value="" type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+          </div>
+         </div>
+      </form>
+
+  </div>
+</div>

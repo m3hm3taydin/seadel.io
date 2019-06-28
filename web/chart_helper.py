@@ -11,6 +11,7 @@ import io
 from io import BytesIO
 import random
 import base64
+from wordcloud import WordCloud, STOPWORDS
 
 plt.ioff() # and this one
 
@@ -59,6 +60,24 @@ def get_column_boxplot(df, col_name):
 
     return ret.decode()
 
+
+def get_wordcloud_image(df, col_name):
+    text = ' '.join(df[col_name].str.lower())
+    word_cloud = WordCloud(stopwords=STOPWORDS, width = 1200, height = 900, background_color = 'black').generate(str(text))
+
+    fig = plt.figure(figsize = (40, 30), facecolor = 'k', edgecolor = 'k')
+    plt.imshow(word_cloud, interpolation = 'bilinear')
+    plt.axis('off')
+    plt.tight_layout(pad=0)
+    img = BytesIO()
+
+    plt.savefig(img, format='png')
+    img.seek(0)
+
+    ret = base64.b64encode(img.getvalue())
+    img.close()
+
+    return ret.decode()
 # def generate_bar_chart(df, x, y, z=None, chart_title="Chart Title", chart_size_x=12, chart_size_y=12):
 def generate_chart_image(df, x, y, **kwargs):
 
