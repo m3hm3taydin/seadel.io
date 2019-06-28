@@ -27,6 +27,8 @@ def reload_pickle(document):
         #for now only get first sheet of excel
         xl = pd.ExcelFile(document_url)
         df = xl.parse(xl.sheet_names[0])
+        document.updated=0
+        document.save()
 
     else:
         return

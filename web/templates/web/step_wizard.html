@@ -11,7 +11,7 @@
         {% endif %}
       </div>
       <div class="stepwizard-step">
-        <a href="{% url 'data_prepare' %}" type="button" class="btn btn-primary btn-circle"><p class="text-primary">2</p></a>
+        <a href="{% url 'data_prepare' %}" type="button" class="btn btn-primary btn-circle bg-white"><p class="text-primary">2</p></a>
         {% if step == 2 %}
           <p class="text-primary btn-font">Data Preparation</p>
         {% else %}
@@ -20,7 +20,7 @@
       </div>
 
       <div class="stepwizard-step">
-        <a href="{% url 'visualize_data' %}" type="button" class="btn btn-primary btn-circle"><p class="text-primary">3</p></a>
+        <a href="{% url 'visualize_data' %}" type="button" class="btn btn-primary btn-circle bg-white"><p class="text-primary">3</p></a>
         {% if step == 3 %}
         <p class="text-primary btn-font">Visualize Data</p>
         {% else %}
@@ -29,7 +29,7 @@
       </div>
 
       <div class="stepwizard-step">
-        <a href="{% url 'analyse_data' %}" type="button" class="btn btn-primary btn-circle"><p class="text-primary">4</p></a>
+        <a href="{% url 'analyse_data' %}" type="button" class="btn btn-primary btn-circle bg-white"><p class="text-primary">4</p></a>
         {% if step == 4 %}
           <p class="text-primary btn-font">Analyze Data</p>
         {% else %}
@@ -38,7 +38,7 @@
       </div>
 
       <div class="stepwizard-step">
-        <a href="{% url 'publish_model' %}" type="button" class="btn btn-primary btn-circle"><p class="text-primary">5</p></a>
+        <a href="{% url 'publish_model' %}" type="button" class="btn btn-primary btn-circle bg-white"><p class="text-primary">5</p></a>
         {% if step == 5 %}
           <p class="text-primary btn-font">Publish Model</p>
         {% else %}
@@ -46,7 +46,7 @@
         {% endif %}
       </div>
       <div class="stepwizard-step">
-        <a href="#step-6" type="button" class="btn btn-primary btn-circle" disabled="disabled"><p class="text-primary">6</p></a>
+        <a href="#step-6" type="button" class="btn btn-primary btn-circle bg-dark" disabled="disabled"><p class="text-primary">6</p></a>
         {% if step == 6 %}
         <p class="text-primary btn-font">Monitor Results</p>
         {% else %}

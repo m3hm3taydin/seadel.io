@@ -27,14 +27,14 @@ SECRET_KEY = '2b@id-_*7r=w4hdjc$oj5(=l0zl5s41tkgh=kk0iop79+e9c2w'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-DATABASES = {'default': dj_database_url.config()}
+# DATABASES = {'default': dj_database_url.config()}
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
+DATABASES = {
+     'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+}
 
 
 ALLOWED_HOSTS = ['seadel.io','seadel.herokuapp.com','localhost', '127.0.0.1']
