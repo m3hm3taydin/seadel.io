@@ -216,6 +216,7 @@
               <tr>
                 <th>Column Name</th>
                 <th>Column Type</th>
+                <th>Value</th>
                 <th>Column Operations</th>
                 <th>Outliers</th>
                 <th>Features</th>
@@ -231,6 +232,13 @@
                 </td>
                 <td>
                   {{ column_type }}
+                </td>
+                <td>
+                  {% for key,value in thumb_charts.items %}
+                    {% ifequal  key column %}
+                      <img alt="embedded" src="data:image/png;base64,{{ value }}" />
+                    {% endifequal %}
+                  {% endfor %}
                 </td>
                 <td>
                   <a href="#" data-ref="change-modal" operation="changecolumn-{{ column }}" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Change Column Name">

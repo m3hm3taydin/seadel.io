@@ -134,8 +134,10 @@ def generate_column_image(df, x, y, **kwargs):
         plt.figure(figsize=(int(kwargs['chart_size_x']),int(kwargs['chart_size_y'])))
     img = BytesIO()
 
-
-    sns.barplot(x=df[y].value_counts().index, y=df[y].value_counts(), palette="Blues" ).set_title(kwargs['chart_title'])
+    if 'chart_title' in kwargs:
+        sns.barplot(x=df[y].value_counts().index, y=df[y].value_counts(), palette="Blues" ).set_title(kwargs['chart_title'])
+    else:
+        sns.barplot(x=df[y].value_counts().index, y=df[y].value_counts(), palette="Blues" )
 
     plt.savefig(img, format='png')
     img.seek(0)

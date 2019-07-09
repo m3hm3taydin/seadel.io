@@ -1,4 +1,4 @@
 db.sqlite3
 seadel/__pycache__
 web/__pycache__
-web/migrations/__pycache__
+web/migrations

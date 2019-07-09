@@ -330,7 +330,18 @@ def data_prepare(request):
             document_list = Document.objects.all()
             return render(request, 'ops/upload_file.html', {'documents': document_list})
         else:
+
             context = create_temp_context(request, selected_dataframe)
+
+            #let generate each chart for general view
+            columns = selected_dataframe.columns
+            temp_chart = {}
+            for column in columns:
+                chart = create_column_chart(selected_dataframe, column)
+                temp_chart[column] = chart
+                print('chart generated for : {}'.format(column))
+            context['thumb_charts'] = temp_chart
+
             return render(request, 'ops/data_prepare.html', context)
 
 def data_prepare_detail(request, pk):
@@ -345,33 +356,40 @@ def data_prepare_detail(request, pk):
 
 
 def create_detail_context(request, df, pk):
-        html = df.head().to_html(classes='table table-striped table-bordered table-hover')
-        selected_column = df.columns[int(pk) - 1]
+    html = df.head().to_html(classes='table table-striped table-bordered table-hover')
+    selected_column = df.columns[int(pk) - 1]
 
-        column_describe = df[df.columns[int(pk)-1]].describe().to_dict()
-        v_dtype_count = get_dtypes_as_dict(df)
-        selected_column_type = v_dtype_count[selected_column]
+    column_describe = df[df.columns[int(pk)-1]].describe().to_dict()
+    v_dtype_count = get_dtypes_as_dict(df)
+    selected_column_type = v_dtype_count[selected_column]
 
-        parameters = {}
-        parameters['z'] = None
-        parameters['chart_size_x'] = 4
-        parameters['chart_size_y'] = 2
-        parameters['chart-type'] = 'bar'
-        parameters['chart_title'] = selected_column
-
-
-        context = {'return_data': html,
-            # 'files': request.session.get('files', False),
-            'selected_column': str(selected_column),
-            'selected_column_type': selected_column_type,
-            'column_describe': column_describe,
-            'v_dtype_count': v_dtype_count,
-            'generated_chart': generate_column_image(get_selected_dataframe(request), 1, selected_column, **parameters),
-            }
-        return context
+    parameters = {}
+    parameters['z'] = None
+    parameters['chart_size_x'] = 4
+    parameters['chart_size_y'] = 2
+    parameters['chart-type'] = 'bar'
+    parameters['chart_title'] = selected_column
 
 
+    context = {'return_data': html,
+        # 'files': request.session.get('files', False),
+        'selected_column': str(selected_column),
+        'selected_column_type': selected_column_type,
+        'column_describe': column_describe,
+        'v_dtype_count': v_dtype_count,
+        'generated_chart': generate_column_image(get_selected_dataframe(request), 1, selected_column, **parameters),
+        }
+    return context
 
+
+def create_column_chart(df, column_name):
+
+    parameters = {}
+    parameters['z'] = None
+    parameters['chart_size_x'] = 2
+    parameters['chart_size_y'] = 1
+    parameters['chart-type'] = 'bar'
+    return generate_column_image(df, 1, column_name, **parameters)
 
 def get_selected_dataframe(request):
     try:
