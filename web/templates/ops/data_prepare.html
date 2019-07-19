@@ -137,7 +137,7 @@
 
       </div>
       <div class="card-body">
-        <div class="table table-sm table-dark text-dark table-responsive">{{ return_data | safe}}</div>
+        <div  class="table-responsive">{{ return_data | safe}}</div>
       </div>
 
 
@@ -297,6 +297,11 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
+
+    $('.preview-table').DataTable( {
+        responsive: true,
+        pageLength: 10,
+    } );
 
     var modalDiv = $("#modal-div");
     $("a[data-toggle='tooltip']").click(function() {

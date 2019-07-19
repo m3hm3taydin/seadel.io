@@ -102,7 +102,7 @@ def modal_show(request, operation):
             return render(request, 'modals/word_cloud.html', context)
         if 'all' in operation:
             document_pk = operation.split('-')
-            context = {'return_data': get_df_as_html(document_pk[1]),}
+            context = {'return_data': get_df_column_as_html(document_pk[1]),}
             return render(request, 'modals/get_all_rows.html', context)
         if 'settings' in operation:
             document_pk = operation.split('-')
@@ -356,7 +356,7 @@ def data_prepare_detail(request, pk):
 
 
 def create_detail_context(request, df, pk):
-    html = df.head().to_html(classes='table table-striped table-bordered table-hover')
+    html = get_df_as_html(df,100)
     selected_column = df.columns[int(pk) - 1]
 
     column_describe = df[df.columns[int(pk)-1]].describe().to_dict()
@@ -400,7 +400,7 @@ def get_selected_dataframe(request):
 
 def create_temp_context(request, df):
 
-        html = df.head().to_html(classes='table table-striped table-bordered table-hover')
+        html = get_df_as_html(df,100)
 
         context = {'return_data': html,
             # 'files': request.session.get('files', False),

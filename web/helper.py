@@ -51,10 +51,12 @@ def get_column_as_html(pk, column_name):
     df = get_or_save_dataframe(pk)
     return df[[column_name]].to_html()
 
-def get_df_as_html(pk, count=200):
+def get_df_column_as_html(pk, count=200):
     df = get_or_save_dataframe(pk)
-    return df.head(200).to_html()
+    return df.head(count).to_html()
 
+def get_df_as_html(df, count=200):
+    return df.head(count).to_html(classes='preview-table table table-striped table-bordered display compact nowrap')
 
 def change_column_name(df, old_column, new_column):
     df.rename(columns={old_column: new_column}, inplace=True)
