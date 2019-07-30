@@ -369,7 +369,7 @@ def create_detail_context(request, df, pk):
     parameters['chart_size_y'] = 2
     parameters['chart-type'] = 'bar'
     parameters['chart_title'] = selected_column
-
+    parameters['multiple-chart'] = False 
 
     context = {'return_data': html,
         # 'files': request.session.get('files', False),
@@ -389,6 +389,7 @@ def create_column_chart(df, column_name):
     parameters['chart_size_x'] = 2
     parameters['chart_size_y'] = 1
     parameters['chart-type'] = 'bar'
+    parameters['multiple-chart'] = True
     return generate_column_image(df, 1, column_name, **parameters)
 
 def get_selected_dataframe(request):

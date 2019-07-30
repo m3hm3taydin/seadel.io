@@ -13,6 +13,8 @@ import os
 import random
 import socket
 
+import yaml
+
 from .models import ModelData
 from .publish_model import publish_model
 
@@ -56,8 +58,9 @@ def run_auto_analyse(train, test, target, max_models=2):
     # and save the test schema for auto flask input
     testdf.drop(target, axis=1, inplace=True)
 
+    uniq_path = str(random.randint(10000, 99999))
     sample_path = model_schemas_path + '/testschema_' + \
-        str(random.randint(10000, 99999)) + '.csv'
+         uniq_path + '.csv'
     testdf.head(1).to_csv(sample_path)
 
     newlb = lb.as_data_frame()
@@ -95,6 +98,31 @@ def run_auto_analyse(train, test, target, max_models=2):
 
     # lb.head(rows=lb.nrows)  # Print all rows instead of default (10 rows)
     df = lb.as_data_frame()
+
+    #lets make yml file for Swagger
+    data = {}
+    inputs = []
+    test = {}
+
+    for column in testdf.columns:
+        test['name'] = column
+        test['in'] = 'query'
+        test['type'] = 'string'#testdf[column].dtype
+        test['required'] = True
+        inputs.append(test.copy())
+    data['info'] = {'description' : 'This is an auto published model. With this UI, you can try, trained model outputs.', 'version' : '1.0.0', 'title': 'Try Model Results', 'termsOfService' : 'http://seadel.io/terms', 'contact':{'email': 'info@seadel.io'}, 'licence':{'name' : 'Apache 2.0', 'url':'http://seadel.io/licence'}}
+    data['host'] = 'seadel.io'
+    data['basePath'] = '/'
+    data['parameters'] = inputs
+
+    yml_file = 'media/apispecs/index.yml'
+    with open(yml_file, 'w') as outfile:
+        yaml.dump(data, outfile, default_flow_style=False)
+    with open(yml_file, 'r+') as f:
+        content = f.read()
+        f.seek(0, 0)
+        f.write('This is an auto published model. With this UI, you can try, trained model outputs.' + '\n---\n' + content)
+
 
     publish_model(model_path, port, ip)
     print('*' * 50)

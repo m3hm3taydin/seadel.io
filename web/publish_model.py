@@ -1,7 +1,8 @@
 import h2o
 from h2o.automl import H2OAutoML
-from flask import Flask, request
+from flask import Blueprint, Flask, jsonify
 from flasgger import Swagger
+from flasgger.utils import swag_from
 import numpy as np
 import pandas as pd
 import os.path
@@ -38,7 +39,9 @@ def publish_model(file_name, port, ip):
 def threaded_publish_model(file_name, ip, port):
     app.run(host=ip, port=port)
 
+
 @app.route('/')
+@swag_from('../media/apispecs/index.yml')
 def test_model():
     """Example endpoint for auto published model
     ---
