@@ -43,6 +43,7 @@ def update_dataframe(df):
 
 def fix_column_names(df):
     df.columns = df.columns.str.replace(' ', '_')
+    df.columns = df.columns.str.replace(':', '')
     df.columns = df.columns.str.replace('/', '_')
     df.columns = df.columns.str.replace("'", '')
     return df

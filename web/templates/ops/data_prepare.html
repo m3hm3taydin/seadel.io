@@ -159,10 +159,10 @@
             {% endif %}
             The file has {{ v_zero_counts }} zero cells
             {% if v_zero_counts != 0 %}
-            <a href="#" data-ref="open-modal" class="btn btn-sm btn-success" operation="zero">
+            <a href="#" data-ref="open-modal" class="btn btn-sm btn-success" operation="zero" data-toggle="tooltip">
               <span class="fa fa-eye"></span>
             </a>
-            <a href="#" class="btn btn-sm btn-danger">
+            <a href="#" class="btn btn-sm btn-danger" operation="zero" data-toggle="tooltip">
               <span class="fa fa-trash-o"></span>
             </a>
             {% endif %}
@@ -177,10 +177,10 @@
               The file has {{ v_null_counts }} null rows.
               {% if v_null_counts != 0 %}
 
-              <a href="#" data-ref="open-modal" class="btn btn-sm btn-success" operation="null">
+              <a href="#" data-ref="open-modal" class="btn btn-sm btn-success" operation="null" data-toggle="tooltip">
                 <span class="fa fa-eye"></span>
               </a>
-              <a href="#" class="btn btn-sm btn-danger">
+              <a href="#" data-ref="open-modal" class="btn btn-sm btn-danger" operation="null" data-toggle="tooltip">
                 <span class="fa fa-trash-o"></span>
               </a>
               {% endif %}
@@ -193,11 +193,11 @@
                 {% endif %}
                 The file has {{ v_duplicated_counts }} duplicate rows
                 {% if v_duplicated_counts != 0 %}
-                <a href="#" class="btn btn-sm btn-success">
+                <a href="#" class="btn btn-sm btn-success" data-toggle="tooltip">
                   <span class="fa fa-eye"></span>
                 </a>
 
-                <a href="#" class="btn btn-sm btn-danger">
+                <a href="#" class="btn btn-sm btn-danger" data-toggle="tooltip">
                   <span class="fa fa-trash-o"></span>
                 </a>
                 {% endif %}

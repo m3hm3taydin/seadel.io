@@ -1,0 +1,51 @@
+This is an auto published model. With this UI, you can try, trained model outputs.
+---
+basePath: /
+host: seadel.io
+info:
+  contact:
+    email: info@seadel.io
+  description: This is an auto published model. With this UI, you can try, trained
+    model outputs.
+  licence:
+    name: Apache 2.0
+    url: http://seadel.io/licence
+  termsOfService: http://seadel.io/terms
+  title: Try Model Results
+  version: 1.0.0
+parameters:
+- description: e.g.72
+  in: query
+  name: math_score
+  required: true
+  type: string
+- description: e.g.72
+  in: query
+  name: reading_score
+  required: true
+  type: string
+- description: e.g.74
+  in: query
+  name: writing_score
+  required: true
+  type: string
+- description: e.g.0
+  in: query
+  name: cat_race_ethnicity
+  required: true
+  type: string
+- description: e.g.0
+  in: query
+  name: cat_parental_level_of_education
+  required: true
+  type: string
+- description: e.g.0
+  in: query
+  name: cat_lunch
+  required: true
+  type: string
+- description: e.g.0
+  in: query
+  name: cat_test_preparation_course
+  required: true
+  type: string

@@ -14,31 +14,38 @@ info:
   title: Try Model Results
   version: 1.0.0
 parameters:
-- in: query
+- description: '90'
+  in: query
   name: math_score
   required: true
-  type: string
-- in: query
+  type: int64
+- description: '95'
+  in: query
   name: reading_score
   required: true
-  type: string
-- in: query
+  type: int64
+- description: '93'
+  in: query
   name: writing_score
   required: true
-  type: string
-- in: query
+  type: int64
+- description: '0'
+  in: query
   name: cat_race_ethnicity
   required: true
-  type: string
-- in: query
+  type: int64
+- description: '2'
+  in: query
   name: cat_parental_level_of_education
   required: true
-  type: string
-- in: query
+  type: int64
+- description: '0'
+  in: query
   name: cat_lunch
   required: true
-  type: string
-- in: query
+  type: int64
+- description: '0'
+  in: query
   name: cat_test_preparation_course
   required: true
-  type: string
+  type: int64

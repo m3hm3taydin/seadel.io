@@ -107,15 +107,16 @@ def run_auto_analyse(train, test, target, max_models=2):
     for column in testdf.columns:
         test['name'] = column
         test['in'] = 'query'
-        test['type'] = 'string'#testdf[column].dtype
+        test['type'] = 'string' #str(testdf[column].dtype)
         test['required'] = True
+        test['description'] = 'e.g.' + str(testdf[column].iloc[0])
         inputs.append(test.copy())
     data['info'] = {'description' : 'This is an auto published model. With this UI, you can try, trained model outputs.', 'version' : '1.0.0', 'title': 'Try Model Results', 'termsOfService' : 'http://seadel.io/terms', 'contact':{'email': 'info@seadel.io'}, 'licence':{'name' : 'Apache 2.0', 'url':'http://seadel.io/licence'}}
     data['host'] = 'seadel.io'
     data['basePath'] = '/'
     data['parameters'] = inputs
 
-    yml_file = 'media/apispecs/index.yml'
+    yml_file = 'media/apispecs/index_'+uniq_path+'.yml'
     with open(yml_file, 'w') as outfile:
         yaml.dump(data, outfile, default_flow_style=False)
     with open(yml_file, 'r+') as f:

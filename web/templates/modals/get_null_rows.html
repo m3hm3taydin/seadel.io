@@ -1,6 +1,6 @@
 <div class="modal fade" id="myEdit" role="dialog">
     <div class="modal-dialog modal-lg">
-        <form class="card bg-light card-body mb-3 contact-form" method="post" action="">
+        <form class="card bg-light card-body mb-3 contact-form" method="post" action="{% url 'data_prepare' %}">
         {% csrf_token %}
         <div class="modal-content">
           <div class="modal-header">
@@ -12,9 +12,12 @@
             <div class="table table-responsive modal-font">
               {{ return_data | safe}}
             </div>
+            <input type="hidden" class="form-control" name="dropnullrows" value="">
+
 
           </div>
           <div class="modal-footer">
+            <button  value="" type="submit" class="btn btn-danger">Remove</button>
             <button  value="" type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
           </div>
         </div>

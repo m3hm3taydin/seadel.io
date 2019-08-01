@@ -324,25 +324,30 @@ def data_prepare(request):
             df = remove_outlier(get_selected_dataframe(request), outlierColumnName)
             context = create_temp_context(request, df)
             return render(request, 'ops/data_prepare.html', context)
+        if 'dropnullrows' in request.POST:
+            print('Dropping null rows')
+            df = drop_null_rows(get_selected_dataframe(request))
+            context = create_temp_context(request, df)
+            return render(request, 'ops/data_prepare.html', context)
     else:
         selected_dataframe = get_selected_dataframe(request)
-        if type(selected_dataframe) == type(False):
-            document_list = Document.objects.all()
-            return render(request, 'ops/upload_file.html', {'documents': document_list})
-        else:
+        # if type(selected_dataframe) == type(False):
+        #     document_list = Document.objects.all()
+        #     return render(request, 'ops/upload_file.html', {'documents': document_list})
+        # else:
 
-            context = create_temp_context(request, selected_dataframe)
+        context = create_temp_context(request, selected_dataframe)
 
-            #let generate each chart for general view
-            columns = selected_dataframe.columns
-            temp_chart = {}
-            for column in columns:
-                chart = create_column_chart(selected_dataframe, column)
-                temp_chart[column] = chart
-                print('chart generated for : {}'.format(column))
-            context['thumb_charts'] = temp_chart
+        #let generate each chart for general view
+        columns = selected_dataframe.columns
+        temp_chart = {}
+        for column in columns:
+            chart = create_column_chart(selected_dataframe, column)
+            temp_chart[column] = chart
+            print('chart generated for : {}'.format(column))
+        context['thumb_charts'] = temp_chart
 
-            return render(request, 'ops/data_prepare.html', context)
+        return render(request, 'ops/data_prepare.html', context)
 
 def data_prepare_detail(request, pk):
     try:
@@ -369,7 +374,7 @@ def create_detail_context(request, df, pk):
     parameters['chart_size_y'] = 2
     parameters['chart-type'] = 'bar'
     parameters['chart_title'] = selected_column
-    parameters['multiple-chart'] = False 
+    parameters['multiple-chart'] = False
 
     context = {'return_data': html,
         # 'files': request.session.get('files', False),

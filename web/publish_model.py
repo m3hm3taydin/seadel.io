@@ -16,6 +16,8 @@ app = Flask(__name__)
 swagger = Swagger(app)
 
 model = None
+yaml_file = '../media/apispecs/index.yml'
+model_file = ''
 
 def publish_model(file_name, port, ip):
 
@@ -24,8 +26,11 @@ def publish_model(file_name, port, ip):
 
         print('-'*50)
         print('Model exist on path')
-        h2o.init()
-        model = h2o.load_model(file_name)
+
+        model_file = file_name
+
+        thread = Thread(target = threaded_publish_model, args =(model_file, ip, port))
+        thread.start()
 
     else:
         print('-'*50)
@@ -33,46 +38,28 @@ def publish_model(file_name, port, ip):
         print('-'*50)
         return
 
-    thread = Thread(target = threaded_publish_model, args =(file_name, ip, port))
-    thread.start()
 
-def threaded_publish_model(file_name, ip, port):
+
+def threaded_publish_model(model_file, ip, port):
+    print('thread is starting with file : {} and ip : {} port : {}'.format(model_file, ip, str(port)))
     app.run(host=ip, port=port)
 
 
-@app.route('/')
-@swag_from('../media/apispecs/index.yml')
+@app.route('/', methods=['POST'])
+@swag_from(yaml_file)
 def test_model():
-    """Example endpoint for auto published model
-    ---
-    parameters:
-      - name: s_length
-        in: query
-        type: number
-        required: true
-      - name: s_width
-        in: query
-        type: number
-        required: true
-      - name: p_length
-        in: query
-        type: number
-        required: true
-      - name: p_width
-        in: query
-        type: number
-        required: true
-      - name: a
-        in: h
-        type: string
-        required: false
-    """
 
-    a = request.args.get("a")
-    s_length = request.args.get("s_length")
-    s_width = request.args.get("s_width")
-    p_length = request.args.get("p_length")
-    p_width = request.args.get("p_width")
+    h2o.init()
+    model = h2o.load_model(model_file)
 
-    prediction = model.predict(np.array([[s_length, s_width, p_length, p_width]]))
+    math_score = request.args.get("math_score")
+    reading_score = request.args.get("reading_score")
+    writing_score = request.args.get("writing_score")
+    cat_race_ethnicity = request.args.get("cat_race_ethnicity")
+    cat_parental_level_of_education = request.args.get("cat_parental_level_of_education")
+    cat_lunch = request.args.get("cat_lunch")
+    cat_test_preparation_course = request.args.get("cat_test_preparation_course")
+
+
+    prediction = model.predict(np.array([[math_score, reading_score, writing_score, cat_race_ethnicity, cat_parental_level_of_education,cat_lunch,cat_test_preparation_course]]))
     return str(prediction)

@@ -104,6 +104,13 @@ def remove_outlier(df, col_name):
     update_dataframe(new_df)
     return new_df
 
+
+def drop_null_rows(df):
+    df.dropna(inplace = True)
+    update_dataframe(df)
+
+    return df
+
 def get_outlier_rows(df, col_name):
     q1 = df[col_name].quantile(0.25)
     q3 = df[col_name].quantile(0.75)

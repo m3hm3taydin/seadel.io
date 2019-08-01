@@ -129,11 +129,11 @@ def generate_column_image(df, x, y, **kwargs):
 
     plt.figure()
 
-    #Limit ValueCount to 30 for performance problems
+    #Limit ValueCount to 100 for performance problems
     #Later will be fix
     #Check if multiple
     if 'multiple-chart' in kwargs:
-        if kwargs['multiple-chart'] and df[y].value_counts().shape[0]>30:
+        if kwargs['multiple-chart'] and df[y].value_counts().shape[0]>100:
             return
 
     if 'chart_size_x' in kwargs and 'chart_size_y' in kwargs:
