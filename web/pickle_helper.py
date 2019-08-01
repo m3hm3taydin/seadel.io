@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 from .models import Document
+from django.contrib.sites.shortcuts import get_current_site
 
 
 def get_or_save_dataframe(pk):
@@ -15,7 +16,7 @@ def get_or_save_dataframe(pk):
 
 
 def reload_pickle(document):
-    document_url = 'http://127.0.0.1:8000' + document.file.url
+    document_url = document.url
     if document.file.name.endswith('.csv'):
         if document.row_count == 0:
             df = pd.read_csv(document_url, sep=document.seperator, encoding=document.encoding)

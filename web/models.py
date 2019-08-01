@@ -4,6 +4,7 @@ from django.db import models
 class Document(models.Model):
     description = models.CharField(max_length=255, blank=True)
     file = models.FileField(upload_to='documents/%Y/%m/%d/')
+    url = models.CharField(max_length=255, blank=True)
     uploaded_at = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=False)
     seperator = models.CharField(max_length=10, default=",")

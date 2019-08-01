@@ -432,6 +432,9 @@ class UploadFileView(View):
         form = DocumentForm(self.request.POST, self.request.FILES)
         if form.is_valid():
             document = form.save()
+            full_file_path = request.build_absolute_uri().replace('/file/new/', '') + document.file.url
+            document.url = full_file_path
+            document.save()
             data = {'is_valid': True, 'name': document.file.name, 'url': document.file.url}
         else:
             data = {'is_valid': False}
