@@ -1,8 +1,10 @@
 import numpy as np
 import pandas as pd
+import os
 from .models import Document
 from django.contrib.sites.shortcuts import get_current_site
 
+pickle_path = "media/pickles"
 
 def get_or_save_dataframe(pk):
     document = Document.objects.get(pk=pk)
@@ -12,7 +14,7 @@ def get_or_save_dataframe(pk):
             print('document setting is updated or this is a new document lets try to reload pickle')
             return reload_pickle(document)
         print('lets load the pickle')
-        df = pd.read_pickle('pickles/cached_dataframe__' + str(pk) + '__.pkl')
+        df = pd.read_pickle(os.path.join(pickle_path, 'cached_dataframe__' + str(document.pk) + '__.pkl'))
         print('pickle loaded to df')
         return df
     except:
@@ -47,14 +49,29 @@ def reload_pickle(document):
     df = fix_column_names(df)
     print('Fixed Dataframe column names')
     print('trying to save pickle file')
-    df.to_pickle('pickles/cached_dataframe__' + str(document.pk) + '__.pkl')
-    print('saved pickle file')
+    print('test')
+    print('*' * 50)
+    print(os.getcwd())
+    # pickle path exists ?
+    if(os.path.exists(pickle_path) is False):
+        print('creating the pickle folder')
+        os.mkdir(pickle_path)
+    else:
+        print('pickle folder exist')
+        try:
+            df.to_pickle(os.path.join(pickle_path, 'cached_dataframe__' + str(document.pk) + '__.pkl'))
+            print('saved pickle file')
+
+        except:
+            print('Error : Can not save pickle to pickles/cached_dataframe__' + str(document.pk) + '__.pkl')
+
+
     return df
 
 def update_dataframe(df):
     document = Document.objects.get(is_active=True)
     df = fix_column_names(df)
-    df.to_pickle('pickles/cached_dataframe__' + str(document.pk) + '__.pkl')
+    df.to_pickle(os.path.join(pickle_path, 'cached_dataframe__' + str(document.pk) + '__.pkl'))
 
 def fix_column_names(df):
     df.columns = df.columns.str.replace(' ', '_')
