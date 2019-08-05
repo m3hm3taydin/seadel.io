@@ -16,7 +16,7 @@ def get_or_save_dataframe(pk):
 
 
 def reload_pickle(document):
-    document_url = document.url
+    document_url = document.document_url
     if document.file.name.endswith('.csv'):
         if document.row_count == 0:
             df = pd.read_csv(document_url, sep=document.seperator, encoding=document.encoding)

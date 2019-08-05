@@ -433,9 +433,9 @@ class UploadFileView(View):
         if form.is_valid():
             document = form.save()
             full_file_path = request.build_absolute_uri().replace('/file/new/', '') + document.file.url
-            document.url = full_file_path
+            document.document_url = full_file_path
             document.save()
-            data = {'is_valid': True, 'name': document.file.name, 'url': document.file.url}
+            data = {'is_valid': True, 'name': document.file.name}
         else:
             data = {'is_valid': False}
         return JsonResponse(data)
