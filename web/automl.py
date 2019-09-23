@@ -19,7 +19,7 @@ from .models import ModelData
 from .publish_model import publish_model
 
 def run_auto_analyse(train, test, target, max_models=2):
-    h2o.init(strict_version_check = False, nthreads=-1,max_mem_size='96M')
+    h2o.init(strict_version_check = False, nthreads=-1,max_mem_size='512M')
 
     testdf = test
     train = h2o.H2OFrame(train)
