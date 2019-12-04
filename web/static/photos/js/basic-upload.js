@@ -8,7 +8,7 @@ $(function () {
     dataType: 'json',
     done: function (e, data) {
       if (data.result.is_valid) {
-        location.reload();
+        // location.reload();
       }
     }
   });

@@ -6,38 +6,108 @@
 
 
 {% block content %}
+<a href="{% url 'upload' %}">Close</a>
+
 
 <div class="jumbotron">
-<div class="row w-100">
-        <div class="col-md-3">
-            <div class="card border-info mx-sm-1 p-3">
-                <div class="card border-info shadow text-info p-3 data-source-card" ><span class="fa fa-plus" aria-hidden="true"></span></div>
-                <div class="text-info text-center mt-3"><h4>File</h4></div>
-                <div class="text-info text-center mt-2"><h1>CSV</h1></div>
-            </div>
+  <div class="row w-100">
+    <div class="col-md-3">
+      <div class="card border-info mx-sm-1 p-3">
+        <div class="card border-info shadow text-info p-3 data-source-card"><span class="fa fa-plus" aria-hidden="true"></span></div>
+        <div class="text-info text-center mt-3">
+          <h4>File</h4>
         </div>
-        <div class="col-md-3">
-            <div class="card border-success mx-sm-1 p-3">
-                <div class="card border-success shadow text-success p-3 data-source-card"><span class="fa fa-plus" aria-hidden="true"></span></div>
-                <div class="text-success text-center mt-3"><h4>File</h4></div>
-                <div class="text-success text-center mt-2"><h1>XSLX</h1></div>
-            </div>
+        <button class="btn js-upload-photos stretched-link">
+          <div class="text-info text-center mt-2">
+            <h1>CSV</h1>
+          </div>
+        </button>
+        <input id="fileupload" type="file" name="file" multiple style="display: none;" data-url="{% url 'upload' %}" data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card border-success mx-sm-1 p-3">
+        <div class="card border-success shadow text-success p-3 data-source-card"><span class="fa fa-plus" aria-hidden="true"></span></div>
+        <div class="text-success text-center mt-3">
+          <h4>File</h4>
         </div>
-        <div class="col-md-3">
-            <div class="card border-danger mx-sm-1 p-3">
-                <div class="card border-danger shadow text-danger p-3 data-source-card" ><span class="fa fa-plus" aria-hidden="true"></span></div>
-                <div class="text-danger text-center mt-3"><h4>Database</h4></div>
-                <div class="text-danger text-center mt-2"><h1>MSSQL</h1></div>
-            </div>
+        <div class="text-success text-center mt-2">
+          <h1>XSLX</h1>
         </div>
-        <div class="col-md-3">
-            <div class="card border-warning mx-sm-1 p-3">
-                <div class="card border-warning shadow text-warning p-3 data-source-card" ><span class="fa fa-plus" aria-hidden="true"></span></div>
-                <div class="text-warning text-center mt-3"><h4>Database</h4></div>
-                <div class="text-warning text-center mt-2"><h1>MYSQL</h1></div>
-            </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card border-danger mx-sm-1 p-3">
+        <div class="card border-danger shadow text-danger p-3 data-source-card"><span class="fa fa-plus" aria-hidden="true"></span></div>
+        <div class="text-danger text-center mt-3">
+          <h4>Database</h4>
         </div>
-     </div>
+        <div class="text-danger text-center mt-2">
+          <h1>MSSQL</h1>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card border-warning mx-sm-1 p-3">
+        <div class="card border-warning shadow text-warning p-3 data-source-card"><span class="fa fa-plus" aria-hidden="true"></span></div>
+        <div class="text-warning text-center mt-3">
+          <h4>Database</h4>
+        </div>
+        <div class="text-warning text-center mt-2">
+          <h1>MYSQL</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="">
+    <hr>
+  </div>
+  <div class="row w-100">
+    <div class="col-md-3">
+      <div class="card border-info mx-sm-1 p-3">
+        <div class="card border-info shadow text-info p-3 data-source-card"><span class="fa fa-plus" aria-hidden="true"></span></div>
+        <div class="text-info text-center mt-3">
+          <h4>Big data</h4>
+        </div>
+        <div class="text-info text-center mt-2">
+          <h1>HBase</h1>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card border-success mx-sm-1 p-3">
+        <div class="card border-success shadow text-success p-3 data-source-card"><span class="fa fa-plus" aria-hidden="true"></span></div>
+        <div class="text-success text-center mt-3">
+          <h4>Big data</h4>
+        </div>
+        <div class="text-success text-center mt-2">
+          <h1>Hive</h1>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card border-danger mx-sm-1 p-3">
+        <div class="card border-danger shadow text-danger p-3 data-source-card"><span class="fa fa-plus" aria-hidden="true"></span></div>
+        <div class="text-danger text-center mt-3">
+          <h4>Big data</h4>
+        </div>
+        <div class="text-danger text-center mt-2">
+          <h1>Elastic Search</h1>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card border-warning mx-sm-1 p-3">
+        <div class="card border-warning shadow text-warning p-3 data-source-card"><span class="fa fa-plus" aria-hidden="true"></span></div>
+        <div class="text-warning text-center mt-3">
+          <h4>Big Data</h4>
+        </div>
+        <div class="text-warning text-center mt-2">
+          <h1>TSDB</h1>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}
 

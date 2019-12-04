@@ -13,17 +13,22 @@
 
 {% block content %}
 
+<div style="margin-bottom: 20px;">
+  <button type="button" class="btn text-white bg-dark">
+    <a href="{% url 'data_source' %}" style="color:inherit"> <span class="glyphicon glyphicon-cloud-upload"></span> Add Data Source </a>
+  </button>
 
-
+</div>
+<!--
 <div style="margin-bottom: 20px;">
   <button type="button" class="btn text-white bg-dark js-upload-photos">
     <span class="glyphicon glyphicon-cloud-upload"></span> Upload Files
   </button>
-  <input id="fileupload" type="file" name="file" multiple style="display: none;" data-url="{% url 'upload' %}" data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
-</div>
+  <input id="fileupload" type="file" name="file" multiple style="display: none;" data-url="{% url 'upload' %}" data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}' />
+</div> -->
 
-<table id="gallery" class="table bg-dark text-white table-sm table-bordered ">
-  <thead>
+<table id="gallery" class="table text-white table-sm table-bordered ">
+  <thead class="bg-dark">
     <tr>
       <th>Uploaded Files ({{ documents.count }})</th>
       <th>Operations</th>

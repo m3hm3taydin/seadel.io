@@ -26,3 +26,16 @@ class ModelData(models.Model):
     port = models.CharField(max_length=255, blank=True)
     status = models.BooleanField(default=False)
     uploaded_at = models.DateTimeField(auto_now_add=True)
+
+# Next Feature
+# Will be recorded all transactions to this model
+class TransactionData(models.Model):
+    query = models.CharField(max_length=1000, blank=False)
+    query_status = models.BooleanField(default=False)
+    runned_by = models.CharField(max_length=255, default="")
+    query_startdate = models.DateTimeField(auto_now_add=True)
+    query_enddate = models.DateTimeField(auto_now_add=True)
+    data_file = models.CharField(max_length=255, blank=True)
+    pickle_file = models.CharField(max_length=255, blank=True)
+    document_pk = models.IntegerField(default=0, blank=False)
+    prev_trans_pk = models.IntegerField(blank=False)
