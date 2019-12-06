@@ -2,6 +2,7 @@ from django.urls import path, re_path
 from web import views
 
 
+
 urlpatterns = [
     re_path(r'^$', views.IndexView.as_view(), name='index'),
     re_path(r'^datasource/$', views.DataSourceView.as_view(), name='data_source'),
@@ -33,3 +34,6 @@ urlpatterns = [
 
     re_path(r'^model/status/(?P<pk>\d+)/$', views.toggle_status_model, name='toggle_status_model'),
 ]
+
+handler404 = views.error_404
+handler500 = views.error_500

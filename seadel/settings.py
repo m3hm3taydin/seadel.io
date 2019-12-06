@@ -25,7 +25,7 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, 'web/templates/web')
 SECRET_KEY = '2b@id-_*7r=w4hdjc$oj5(=l0zl5s41tkgh=kk0iop79+e9c2w'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # DATABASES = {'default': dj_database_url.config()}
 

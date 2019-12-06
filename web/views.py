@@ -506,3 +506,11 @@ def get_current_document():
         return Document.objects.get(is_active=True)
     except:
         return False
+
+def error_404(request, exception):
+        data = {}
+        return render(request,'404.html', data)
+
+def error_500(request):
+        data = {}
+        return render(request,'500.html', data)
