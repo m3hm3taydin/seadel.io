@@ -25,7 +25,7 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, 'web/templates/web')
 SECRET_KEY = '2b@id-_*7r=w4hdjc$oj5(=l0zl5s41tkgh=kk0iop79+e9c2w'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 # DATABASES = {'default': dj_database_url.config()}
 
@@ -50,8 +50,23 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'web',
-    'channels',
+    'rest_framework',
+    'rest_framework.authtoken',
+
+    'allauth',
+    'allauth.account',
+    # 'allauth.socialaccount',
+
+    'rest_auth',
+    'rest_auth.registration',
+    'crispy_forms',
+
+    'webpack_loader',
+
+    'users',
+
 
 ]
 
@@ -68,10 +83,11 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'seadel.urls'
 
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATE_DIR,],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -126,17 +142,54 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.1/howto/static-files/
-
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'assets'),
+    os.path.join(BASE_DIR, 'frontend/dist'),
+]
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+# Custom User Model
+AUTH_USER_MODEL = 'users.CustomUser'
+
+# Django crispy forms
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# django.contrib.sites
+SITE_ID = 1
+
+# django.allauth
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_EMAIL_REQUIRED = (True)
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
+
+# Django-rest-framework
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATON_CLASSES':(
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES':(
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    # TODO: Do we need pagination?
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination', 
+    'PAGE_SIZE':200,
+
+}
+
+
+
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': 'dist/',
+        'STATS_FILE': os.path.join(BASE_DIR, 'frontend', 'webpack-stats.json'),
+    } 
+}
